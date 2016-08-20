@@ -1,53 +1,26 @@
-var USER_DATA = {
-    name: 'Vedran Mandic',
-    username: 'vmandic',
-    image: 'https://avatars2.githubusercontent.com/u/1390895?v=3&u=aff79990ddd0351dffba3d9322341a1e2b166ead&s=140'
-}
-
 var React = require("react");
 var ReactDOM = require("react-dom");
+var routes = require("./config/routes");
+var Raven = require("raven-js");
 
-var ProfilePic = React.createClass({
-    render: function () {
-        return (
-            <img src={this.props.imageUrl} style={{ height: 100, width: 100 }} />
-        );
-    }
-});
+var sentryKey = 'f06484eccb1a449ba4f72d098cd3d4b3';
+var sentryApp = '93269';
+var sentryURL = 'https://' + sentryKey + '@app.getsentry.com/' + sentryApp;
 
-var ProfileLink = React.createClass({
-    render: function () {
-        return (
-            <div>
-                <a href={'https://www.github.com/' + this.props.username}>
-                    {this.props.username}
-                </a>
-            </div>
-        );
-    }
-});
+var _APP_INFO = {
+    name: 'Github Battle',
+    branch: '4',
+    version: '1.0'
+};
 
-var ProfileName = React.createClass({
-    render: function () {
-        return (
-            <div>{this.props.name}</div>
-        );
+Raven.config(sentryURL, {
+    release: _APP_INFO.version,
+    tags: {
+        branch: _APP_INFO.branch,
     }
-});
-
-var Avatar = React.createClass({
-    render: function () {
-        return (
-            <div>
-                <ProfilePic imageUrl={this.props.user.image} />
-                <ProfileName name={this.props.user.name} />
-                <ProfileLink username={this.props.user.username} />
-            </div>
-        );
-    }
-});
+}).install();
 
 ReactDOM.render(
-    <Avatar user={USER_DATA} />,
+    routes,
     document.getElementById("app")
 ); 
