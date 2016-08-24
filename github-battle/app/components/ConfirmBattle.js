@@ -2,9 +2,11 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 var styles = require('../styles/index.js');
 var Link = require("react-router").Link;
+var UserDetails = require("../components/UserDetails.js");
+var UserDetailsWrapper = require("../components/UserDetailsWrapper.js");
 
 function puke(object) {
-    return <pre>{JSON.stringify(object, null, ' ')}</pre>
+    return <pre>{JSON.stringify(object, null, ' ') }</pre>
 }
 
 function ConfirmBattle(props) {
@@ -15,27 +17,25 @@ function ConfirmBattle(props) {
             style={styles.transparentBg}>
             <h1>Confirm players</h1>
             <div className="col-sm-8 col-sm-offset-2">
-                <div className="col-sm-6">
-                    <p className="lead">Player 1</p>
-                    {puke(props.playersInfo[0])}
-                </div>
-                <div className="col-sm-6">
-                    <p className="lead">Player 2</p>
-                    {puke(props.playersInfo[1])}
-                </div>
+                <UserDetailsWrapper header="Player 1">
+                    <UserDetails user={props.playersInfo[0]}  />
+                </UserDetailsWrapper>
+                <UserDetailsWrapper header="Player 2">
+                    <UserDetails user={props.playersInfo[1]}  />
+                </UserDetailsWrapper>
             </div>
             <div className="col-sm-8 col-sm-offset-2">
-                <div className="col-sm-12">
-                    <button 
-                        type="button" 
-                        className="btn btn-success btn-lg" 
+                <div className="col-sm-12" style={styles.space}>
+                    <button
+                        type="button"
+                        className="btn btn-success btn-lg"
                         onClick={props.onInitiateBattle}>
-                     Initiate Battle!
+                        Initiate Battle!
                     </button>
                 </div>
-                <div className="col-sm-12">
+                <div className="col-sm-12" style={styles.space}>
                     <Link to="/playerOne">
-                        <button className="btn btn-lg btn-danger">Reselect Players</button>
+                        <button type="button" className="btn btn-lg btn-danger">Reselect Players</button>
                     </Link>
                 </div>
             </div>
