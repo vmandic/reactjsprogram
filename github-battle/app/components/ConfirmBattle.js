@@ -4,17 +4,13 @@ var styles = require('../styles/index.js');
 var Link = require("react-router").Link;
 var UserDetails = require("../components/UserDetails.js");
 var UserDetailsWrapper = require("../components/UserDetailsWrapper.js");
-
-function puke(object) {
-    return <pre>{JSON.stringify(object, null, ' ') }</pre>
-}
+var MainContainer = require("../components/MainContainer");
+var Loading = require("../components/Loading");
 
 function ConfirmBattle(props) {
     return props.isLoading === true
-        ? <p> LOADING! </p>
-        : <div
-            className="jumbotron col-sm-12 text-center"
-            style={styles.transparentBg}>
+        ? <Loading />
+        : <MainContainer>
             <h1>Confirm players</h1>
             <div className="col-sm-8 col-sm-offset-2">
                 <UserDetailsWrapper header="Player 1">
@@ -39,7 +35,7 @@ function ConfirmBattle(props) {
                     </Link>
                 </div>
             </div>
-        </div>
+        </MainContainer>
 }
 
 ConfirmBattle.propTypes = {

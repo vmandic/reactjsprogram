@@ -6,6 +6,7 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
+    devtool: "source-map",
     entry: [
         "./app/index.js"
     ],
@@ -21,6 +22,9 @@ module.exports = {
             query: {
                 presets: ["react"]
             }
+        },
+        {
+            test: /\.css$/, loader: "style-loader!css-loader"
         }]
     },
     plugins: [HtmlWebpackPluginConfig]
